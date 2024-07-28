@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchNews } from "./api"; // fetchNews 함수 경로에 맞게 import
 
 const MainNews = ({ category }) => {
   const [data, setData] = useState([]);
@@ -6,10 +7,8 @@ const MainNews = ({ category }) => {
   useEffect(() => {
     const getNews = async () => {
       const cate = category === "all" ? "" : `&category=${category}`;
-      const apiKey = process.env.REACT_APP_NEWS_API_KEY;
-      // const url = `https://newsapi.org/v2/top-headlines?country=kr${cate}&apiKey=&{apiKey}`;
-      // const url = `https://newsapi.org/v2/top-headlines?country=kr${cate}&apiKey=3edbe8fb44eb4142988957f180c08ef1`;
-      const url = `https://newsapi.org/v2/top-headlines?country=kr${cate}&apiKey=4d04ef5559d647efa5e26f934f7db879`;
+      const apiKey = '4d04ef5559d647efa5e26f934f7db879';
+      const url = `https://newsapi.org/v2/top-headlines?country=kr${cate}&apiKey=${apiKey}`;
       const res = await fetch(url);
       const datas = await res.json();
       setData(datas.articles);
@@ -37,7 +36,7 @@ const MainNews = ({ category }) => {
                   fontWeight: "bold",
                 }}
               >
-                <a href={v.url} target="_blank">
+                <a href={v.url} target="_blank" rel="noopener noreferrer">
                   {v.title}
                 </a>
               </p>
@@ -47,6 +46,7 @@ const MainNews = ({ category }) => {
                     {v.urlToImage && (
                       <img
                         src={v.urlToImage}
+                        alt={v.title}
                         style={{
                           width: "15%",
                           height: "20%",
