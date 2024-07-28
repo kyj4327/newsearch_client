@@ -24,7 +24,6 @@ export const fetchDataFromBackend = async (endpoint, options = {}) => {
   }
 };
 
-// 사용 예제
 export const fetchNews = async (country = 'kr') => {
   const apiKey = '4d04ef5559d647efa5e26f934f7db879';
   const url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}`;
@@ -34,6 +33,7 @@ export const fetchNews = async (country = 'kr') => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': '1', // 업그레이드 요청 추가
       },
     });
 
