@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchNews } from "./api"; // fetchNews 함수 경로에 맞게 import
+import { fetchNews } from "../api"; // api.js가 src 디렉토리에 있다고 가정하고 상대 경로를 지정합니다.
 
 const MainNews = ({ category }) => {
   const [data, setData] = useState([]);
