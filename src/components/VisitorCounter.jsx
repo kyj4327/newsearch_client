@@ -8,11 +8,10 @@ const VisitorCounter = () => {
   useEffect(() => {
     const fetchVisitorData = async () => {
       try {
-        const response = await fetchDataFromBackend("/update-visitor-count", {
+        const data = await fetchDataFromBackend("/update-visitor-count", {
           method: "POST",
           credentials: "include", // 세션 쿠키를 포함한 요청
         });
-        const data = await response.json();
         console.log("Fetched data:", data); // 데이터 로그 추가
         setTodayVisitor(data.todayVisitor);
         setTotalVisitor(data.totalVisitor);
