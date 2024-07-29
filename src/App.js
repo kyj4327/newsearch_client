@@ -82,18 +82,14 @@ function App() {
   const [newsList, setNewsList] = useState([]);
   const [search, setSearch] = useState("");
 
-  // const fetchNews = async (search) => {
-  //   setSearch(search);
-  //   const url = `http://localhost:8080/naver/data?search=${search}`;
-  //   const res = await fetch(url);
-  //   const data = await res.json();
-  //   setNewsList(data.items);
-  // };
-
   const fetchNews = async (search) => {
     setSearch(search);
-    const data = await fetchDataFromBackend(`/naver/data?search=${search}`);
-    setNewsList(data.items);
+    try {
+      const data = await fetchDataFromBackend(`/naver/data?search=${search}`);
+      setNewsList(data.items);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    }
   };
 
   const [showChatBot, setShowChatBot] = useState(true);

@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
-import { fetchNews } from "../api"; // api.js가 src 디렉토리에 있다고 가정하고 상대 경로를 지정합니다.
+import { useNavigate } from "react-router-dom";
+import { fetchDataFromBackend } from "../api"; // fetchDataFromBackend 함수 가져오기
 
 const MainNews = ({ category }) => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getNews = async () => {
-      const cate = category === "all" ? "" : `&category=${category}`;
-      const apiKey = '4d04ef5559d647efa5e26f934f7db879';
-      const url = `https://newsapi.org/v2/top-headlines?country=kr${cate}&apiKey=${apiKey}`;
-      const res = await fetch(url);
-      const datas = await res.json();
-      setData(datas.articles);
+      try {
+        const res = await fetchDataFromBackend(`/news?category=${category}`);
+        setData(res.articles);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
     };
     getNews();
   }, [category]);
 
-  // <br> 태그 제거
   const removeHtmlTags = (str) => {
-    return str.replace(/<br\s*\/?>/gi, '');
+    return str.replace(/<br\s*\/?>/gi, "");
+  };
+
+  const handleTitleClick = (url) => {
+    navigate("/news", { state: { url, search: category } });
   };
 
   return (
@@ -26,44 +31,60 @@ const MainNews = ({ category }) => {
       <div
         style={{ width: "97%", height: "98.5%", margin: "1.5% 1.5% 0 1.5%" }}
       >
-        {data.map((v, i) => {
-          return (
-            <div key={i}>
-              <p
+        {data.map((v, i) => (
+          <div key={i}>
+            <p
+              style={{
+                margin: "0",
+                fontSize: "2.2vmin",
+                fontWeight: "bold",
+              }}
+            >
+              <span
+                onClick={() => handleTitleClick(v.url)}
                 style={{
-                  margin: "0",
-                  fontSize: "2.2vmin",
-                  fontWeight: "bold",
+                  cursor: "pointer",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
+                dangerouslySetInnerHTML={{ __html: v.title }}
+              />
+            </p>
+            {v.urlToImage && v.description && (
+              <div
+                className="content"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "1.8vh",
                 }}
               >
-                <a href={v.url} target="_blank" rel="noopener noreferrer">
-                  {v.title}
-                </a>
-              </p>
-              {
-                v.urlToImage && v.description && (
-                  <div className="content" style={{ display: "flex", alignItems: "center", marginTop: "1.8vh" }}>
-                    {v.urlToImage && (
-                      <img
-                        src={v.urlToImage}
-                        alt={v.title}
-                        style={{
-                          width: "15%",
-                          height: "20%",
-                          marginRight: "1vw"
-                        }}
-                      />
-                    )}
-                    {v.description && <p style={{ margin: "0", fontSize: "1.8vmin" }} dangerouslySetInnerHTML={{ __html: removeHtmlTags(v.description) }}></p>}
-                  </div>
-                )
-              }
-              <hr style={{ margin: '2.5vh 0 2.5vh 0' }} />
-            </div>
-          );
-        })}
+                {v.urlToImage && (
+                  <img
+                    src={v.urlToImage}
+                    style={{
+                      width: "15%",
+                      height: "20%",
+                      marginRight: "1vw",
+                    }}
+                  />
+                )}
+                {v.description && (
+                  <p
+                    style={{ margin: "0", fontSize: "1.8vmin" }}
+                    dangerouslySetInnerHTML={{
+                      __html: removeHtmlTags(v.description),
+                    }}
+                  ></p>
+                )}
+              </div>
+            )}
+            <hr style={{ margin: "2.5vh 0 2.5vh 0" }} />
+          </div>
+        ))}
       </div>
     </div>
   );
 };
+
 export default MainNews;
