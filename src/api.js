@@ -24,8 +24,9 @@ export const fetchDataFromBackend = async (endpoint, options = {}) => {
   }
 };
 
-export const fetchNews = async (country = 'us') => {
+export const fetchNews = async (category = 'all',country = 'us') => {
   const apiKey = '4d04ef5559d647efa5e26f934f7db879';
+  const cate = category === 'all' ? '' : `&category=${category}`;
   const url = `https://newsapi.org/v2/top-headlines?country=${country}${cate}&apiKey=${apiKey}`;
 
   try {
