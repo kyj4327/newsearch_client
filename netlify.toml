@@ -1,0 +1,6 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://newsapi.org/v2/:splat"
+  status = 200
+  force = true
+  headers = { x-api-key = "4d04ef5559d647efa5e26f934f7db879" }
