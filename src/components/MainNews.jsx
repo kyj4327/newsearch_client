@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchDataFromBackend } from "../api"; // fetchDataFromBackend 함수 가져오기
+import { fetchNews } from "../api";
 
 const MainNews = ({ category }) => {
   const [data, setData] = useState([]);
@@ -9,10 +9,10 @@ const MainNews = ({ category }) => {
   useEffect(() => {
     const getNews = async () => {
       try {
-        const res = await fetchDataFromBackend(`/news?category=${category}`);
-        setData(res.articles);
+        const articles = await fetchNews(category); // api.js의 fetchNews 호출
+        setData(articles);
       } catch (error) {
-        console.error("Error fetching news:", error);
+        console.error('Failed to fetch news:', error);
       }
     };
     getNews();
