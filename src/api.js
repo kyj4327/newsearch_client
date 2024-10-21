@@ -24,17 +24,13 @@ export const fetchDataFromBackend = async (endpoint, options = {}) => {
   }
 };
 
-export const fetchNews = async (category = 'all',country = 'us') => {
-  const apiKey = '4d04ef5559d647efa5e26f934f7db879';
+export const fetchNews = async (category = 'all', country = 'us') => {
   const cate = category === 'all' ? '' : `&category=${category}`;
-  const url = `/api/top-headlines?country=${country}${cate}`;
-  
+  const url = `/api/top-headlines?country=${country}${cate}`; // Netlify 프록시 경로 사용
+
   try {
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
     if (!response.ok) {
@@ -42,9 +38,9 @@ export const fetchNews = async (category = 'all',country = 'us') => {
     }
 
     const data = await response.json();
-    console.log(data);
-    return data;
+    return data.articles; // 뉴스 데이터를 반환
   } catch (error) {
     console.error('Error fetching news:', error);
+    throw error;
   }
 };
