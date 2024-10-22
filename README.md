@@ -1,5 +1,6 @@
 ![header](https://github.com/user-attachments/assets/798bc2cd-5264-43fc-be4e-b5821c3482cb)
-서버 레포지토리 : https://github.com/yyerrim/newsearch_server
+<br />
+서버 레포지토리: https://github.com/yyerrim/newsearch_server
 
 
 # 🥅 프로젝트 목표
@@ -16,14 +17,12 @@
 
 </div>
 
-<br />
-
 # 💡 Issues
 - 뉴스 api에서 한국어 지원 중단
 - 10/21일 수정 사항 : 뉴스 국가 미국으로 변경
 
 # 💡 Pages
-메인화면
+### 메인화면
 
 <div align="center">
 
@@ -31,8 +30,9 @@
 
 </div>
 
-뉴스 검색
- - 키워드: '개발자'
+### 뉴스 검색
+ - 검색 : 네이버 뉴스 검색
+ - 예시 : 키워드 = '개발자' 
  <div align="center">
 
 <img width="1508" alt="스크린샷 2024-10-22 23 23 26" src="https://github.com/user-attachments/assets/73406f6c-9cee-4974-a081-aaa2e6b65dd4">
