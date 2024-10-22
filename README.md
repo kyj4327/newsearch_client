@@ -1,4 +1,9 @@
-![header](https://github.com/user-attachments/assets/798bc2cd-5264-43fc-be4e-b5821c3482cb)
+<div align="center">
+
+  ![header](https://github.com/user-attachments/assets/798bc2cd-5264-43fc-be4e-b5821c3482cb)
+
+</div>
+  
 <br />
 서버 레포지토리: https://github.com/yyerrim/newsearch_server
 
@@ -18,7 +23,7 @@
 </div>
 
 # 💡 Issues
-- 뉴스 api에서 한국어 지원 중단
+- 뉴스 api => 한국 지원 중단
 - 10/21일 수정 사항 : 뉴스 국가 미국으로 변경
 
 # 💡 Pages
